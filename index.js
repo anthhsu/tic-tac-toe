@@ -21,4 +21,15 @@ const Player = (name, age) => {
     };
 };
 
-console.log(gameBoard.getBoard());
+const displayBoard = () => {
+    let board = gameBoard.getBoard();
+    for (let r = 0; r < board.length; r++) {
+        for (let c = 0; c < board[r].length; c++) {
+            let squareNum = board.length*(r) + (c+1);
+            const curSquare = document.getElementById("square-text-"+squareNum.toString());
+            curSquare.innerText = board[r][c];
+        }
+    }
+}
+
+displayBoard();

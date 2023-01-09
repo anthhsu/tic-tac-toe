@@ -10,4 +10,11 @@
     border-width: 1px;
     border-style: solid;
     border-color: black;
+    display: flex;
+    align-items: center;
+}
+
+.square-text {
+    flex: auto;
+    text-align: center;
 }
