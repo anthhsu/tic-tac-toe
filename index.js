@@ -5,9 +5,17 @@ const gameBoard = (() => {
         ["X", "O", "X"],
         ["X", "X", "O"]
     ];
-    const getBoard = () => board;
+    const displayBoard = () => {
+        for (let r = 0; r < board.length; r++) {
+            for (let c = 0; c < board[r].length; c++) {
+                let squareNum = board.length*(r) + (c+1);
+                const curSquare = document.getElementById("square-text-"+squareNum.toString());
+                curSquare.innerText = board[r][c];
+            }
+        }
+    }
     return {
-        getBoard,
+        displayBoard,
     }
 })();
 
@@ -32,4 +40,5 @@ const displayBoard = () => {
     }
 }
 
-displayBoard();
+// Execute Code
+gameBoard.displayBoard();
