@@ -1,5 +1,8 @@
 // Modules 
 const gameBoard = (() => {
+    let playerOne;
+    let playerTwo;
+    let curPlayer;
     let board = [
         ["O", "X", ""],
         ["X", "", "X"],
@@ -15,13 +18,16 @@ const gameBoard = (() => {
     let squareEight = document.getElementById("square-text-8");
     let squareNine = document.getElementById("square-text-9");
 
-    const initializeBoard = () => {
+    const initializeGame = (a, b) => {
+        playerOne = a;
+        playerTwo = b;
+        curPlayer = playerOne;
         for (let r = 0; r < board.length; r++) {
             for (let c = 0; c < board[r].length; c++) {
                 let squareNum = board.length*(r) + (c+1);
                 const curSquare = document.getElementById("square-"+squareNum.toString());
                 curSquare.addEventListener("click", () => {
-                    console.log(isSquareEmpty(squareNum));
+                    squareClicked(squareNum);
                 });
             }
         }
@@ -72,23 +78,37 @@ const gameBoard = (() => {
             return false;
         }
     }
+
+    const squareClicked = (squareNum) => {
+        // Add logic to handle actions when square is clicked
+        console.log("It is " + curPlayer.getName() + "'s turn!");
+        if (curPlayer == playerOne) {
+            curPlayer = playerTwo;
+        } else {
+            curPlayer = playerOne;
+        }
+        console.log(isSquareEmpty(squareNum));
+    }
+
     return {
-        initializeBoard,
+        initializeGame,
         displayBoard,
         isSquareEmpty,
     }
 })();
 
 // Factory Functions
-const Player = (name, age) => {
-    const getName = () => name;
-    const getAge = () => age;
+const Player = (name, marker) => {
+    const getName = () => {return name};
+    const getMarker = () => {return marker};
     return {
-        getName, 
-        getAge,
+        getName,
+        getMarker,
     };
 };
 
 // Execute Code
-gameBoard.initializeBoard();
+const playerOne = Player("Ant", "O");
+const playerTwo = Player("Steph", "X");
+gameBoard.initializeGame(playerOne, playerTwo);
 gameBoard.displayBoard();
