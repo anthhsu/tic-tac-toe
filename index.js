@@ -8,6 +8,8 @@ const gameBoard = (() => {
         ["", "", ""],
         ["", "", ""]
     ];
+    let playerTurnText = document.getElementById("current-player");
+    let messageText = document.getElementById("message");
 
     const initializeGame = (a, b) => {
         playerOne = a;
@@ -32,6 +34,7 @@ const gameBoard = (() => {
                 curSquare.innerText = board[r][c];
             }
         }
+        playerTurnText.innerText = curPlayer.getName() + ", it's your turn!";
     }
     const isSquareEmpty = (squareNumber) => {
         let value = "";
@@ -45,7 +48,6 @@ const gameBoard = (() => {
 
     const squareClicked = (squareNum) => {
         // Add logic to handle actions when square is clicked
-        console.log("It is " + curPlayer.getName() + "'s turn!");
         if (isSquareEmpty(squareNum)) {
             board[Math.floor((squareNum-1)/3)][(squareNum-1)%3] = curPlayer.getMarker();
             if (curPlayer == playerOne) {
@@ -53,8 +55,9 @@ const gameBoard = (() => {
             } else {
                 curPlayer = playerOne;
             }
+            messageText.innerText = "";
         } else {
-            console.log("Please choose another square!");
+            messageText.innerText = "Please choose another square!";
         }
         displayBoard();
     }
@@ -77,6 +80,6 @@ const Player = (name, marker) => {
 };
 
 // Execute Code
-const playerOne = Player("Ant", "O");
-const playerTwo = Player("Steph", "X");
+const playerOne = Player("Player 1", "O");
+const playerTwo = Player("Player 2", "X");
 gameBoard.initializeGame(playerOne, playerTwo);
