@@ -19,7 +19,11 @@
     text-align: center;
 }
 
-h1, h2, h3 {
+h1, h2, h3, p {
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+p { 
+    font-size: 4rem;
 }

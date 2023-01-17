@@ -26,6 +26,7 @@ const gameBoard = (() => {
         }
         displayBoard();
     }
+
     const displayBoard = () => {
         for (let r = 0; r < board.length; r++) {
             for (let c = 0; c < board[r].length; c++) {
@@ -36,6 +37,7 @@ const gameBoard = (() => {
         }
         playerTurnText.innerText = curPlayer.getName() + ", it's your turn!";
     }
+
     const isSquareEmpty = (squareNumber) => {
         let value = "";
         value = board[Math.floor((squareNumber-1)/3)][(squareNumber-1)%3];
