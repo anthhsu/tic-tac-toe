@@ -24,6 +24,7 @@ const gameBoard = (() => {
                 });
             }
         }
+        playerTurnText.innerText = curPlayer.getName() + ", it's your turn!";
         displayBoard();
     }
 
@@ -35,7 +36,6 @@ const gameBoard = (() => {
                 curSquare.innerText = board[r][c];
             }
         }
-        playerTurnText.innerText = curPlayer.getName() + ", it's your turn!";
     }
 
     const isSquareEmpty = (squareNumber) => {
@@ -47,17 +47,136 @@ const gameBoard = (() => {
             return false;
         }
     }
+    
+    const isGameWon = (r, c) => {
+        let marker = board[r][c];
+        let curR;
+        let curC;
+        let count;
+
+        // vertical
+        count = 1;
+        curR = r + 1;
+        curC = c;
+        while (validate(curR, curC, marker)) {
+            count += 1;
+            if (count == 3) {
+                return true;
+            }
+            curR += 1;
+        }
+        curR = r - 1;
+        curC = c;
+        while (validate(curR, curC, marker)) {
+            count += 1;
+            if (count == 3) {
+                return true;
+            }
+            curR -= 1;
+        }
+
+        // horizontal
+        count = 1;
+        curR = r;
+        curC = c + 1;
+        while (validate(curR, curC, marker)) {
+            count += 1;
+            if (count == 3) {
+                return true;
+            }
+            curC += 1;
+        }
+        curR = r;
+        curC = c - 1;
+        while (validate(curR, curC, marker)) {
+            count += 1;
+            if (count == 3) {
+                return true;
+            }
+            curC -= 1;
+        }
+
+        // diagonal "\"
+        count = 1;
+        curR = r + 1;
+        curC = c + 1;
+        while (validate(curR, curC, marker)) {
+            count += 1;
+            if (count == 3) {
+                return true;
+            }
+            curR += 1;
+            curC += 1;
+        }
+        curR = r - 1;
+        curC = c - 1;
+        while (validate(curR, curC, marker)) {
+            count += 1;
+            if (count == 3) {
+                return true;
+            }
+            curR -= 1;
+            curC -= 1;
+        }
+
+        // diagonal "/"
+        count = 1;
+        curR = r + 1;
+        curC = c - 1;
+        while (validate(curR, curC, marker)) {
+            count += 1;
+            if (count == 3) {
+                return true;
+            }
+            curR += 1;
+            curC -= 1;
+        }
+        curR = r - 1;
+        curC = c + 1;
+        while (validate(curR, curC, marker)) {
+            count += 1;
+            if (count == 3) {
+                return true;
+            }
+            curR -= 1;
+            curC += 1;
+        }
+
+        return false;
+    }
+
+    const isGameTied = () => {
+    }
+
+    const validate = (r, c, marker) => {
+        if (r < 0 || c < 0 || r >= 3 || c >= 3) {
+            return false;
+        } else if (board[r][c] != marker) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     const squareClicked = (squareNum) => {
         // Add logic to handle actions when square is clicked
         if (isSquareEmpty(squareNum)) {
-            board[Math.floor((squareNum-1)/3)][(squareNum-1)%3] = curPlayer.getMarker();
-            if (curPlayer == playerOne) {
-                curPlayer = playerTwo;
+            let r = Math.floor((squareNum-1)/3);
+            let c = (squareNum-1)%3;
+            board[r][c] = curPlayer.getMarker();
+            if (isGameWon(r, c)) {
+                playerTurnText.innerText = "Game Over! " + curPlayer.getName() + " wins!";
+                messageText.innerText = "";
+                // Reset game.
             } else {
-                curPlayer = playerOne;
+                if (curPlayer == playerOne) {
+                    curPlayer = playerTwo;
+                } else {
+                    curPlayer = playerOne;
+                }
+                playerTurnText.innerText = curPlayer.getName() + ", it's your turn!";
+                messageText.innerText = "";
             }
-            messageText.innerText = "";
         } else {
             messageText.innerText = "Please choose another square!";
         }
