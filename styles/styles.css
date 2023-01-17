@@ -6,12 +6,17 @@
 }
 
 .square {
-    background-color: white;
+    background-color: #ededed;
     border-width: 1px;
     border-style: solid;
     border-color: black;
     display: flex;
     align-items: center;
+}
+
+.square:hover {
+    cursor: pointer;
+    background-color: #acc8d7;
 }
 
 .square-text {

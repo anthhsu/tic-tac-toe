@@ -201,6 +201,6 @@ const Player = (name, marker) => {
 };
 
 // Execute Code
-const playerOne = Player("Player 1", "O");
-const playerTwo = Player("Player 2", "X");
+const playerOne = Player("Steph", "O");
+const playerTwo = Player("Ant", "X");
 gameBoard.initializeGame(playerOne, playerTwo);
