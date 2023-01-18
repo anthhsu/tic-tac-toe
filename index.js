@@ -10,6 +10,18 @@ const gameBoard = (() => {
     ];
     let playerTurnText = document.getElementById("current-player");
     let messageText = document.getElementById("message");
+    
+    let btnNewGame = document.getElementById("btn-new");
+    btnNewGame.addEventListener("click", () => {
+        board = [
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""]
+        ];
+        btnNewGame.style.display = "none";
+        playerTurnText.innerText = curPlayer.getName() + ", it's your turn!";
+        displayBoard();
+    });
 
     const initializeGame = (a, b) => {
         playerOne = a;
@@ -145,7 +157,15 @@ const gameBoard = (() => {
         return false;
     }
 
-    const isGameTied = () => {
+    const isGameTied = (r, c) => {
+        for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+                if (board[r][c] == "") {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     const validate = (r, c, marker) => {
@@ -167,7 +187,11 @@ const gameBoard = (() => {
             if (isGameWon(r, c)) {
                 playerTurnText.innerText = "Game Over! " + curPlayer.getName() + " wins!";
                 messageText.innerText = "";
-                // Reset game.
+                resetGame();
+            } else if (isGameTied(r, c)) {
+                playerTurnText.innerText = "Tie! Want to play again?";
+                messageText.innerText = "";
+                resetGame();
             } else {
                 if (curPlayer == playerOne) {
                     curPlayer = playerTwo;
@@ -181,6 +205,10 @@ const gameBoard = (() => {
             messageText.innerText = "Please choose another square!";
         }
         displayBoard();
+    }
+
+    const resetGame = () => {
+        btnNewGame.style.display = "block";
     }
 
     return {

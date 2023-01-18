@@ -1,5 +1,5 @@
 .container-grid {
-    margin: 20px 30% 20px 30%;
+    margin: 30px 30% 30px 30%;
     display: grid;
     grid-template-columns: repeat(3, 200px);
     grid-template-rows: repeat(3, 200px);
@@ -31,4 +31,23 @@ h1, h2, h3, p {
 
 p { 
     font-size: 4rem;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+button {
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    border-width: 2px;
+}
+
+#btn-new {
+    position: absolute;
+    left: calc(50% - 100px);
+    right: calc(50% - 100px);
+    margin-bottom: 50px;
+    display: none;
 }
